@@ -1,17 +1,28 @@
 package ka.de.ascendra.backend.model;
 
+import jakarta.persistence.*;
 import ka.de.ascendra.backend.enums.Status;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class TrackingComponent {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "start_date")
     private LocalDate startDate;
+    @Column(name = "end_date")
     private LocalDate endDate;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "Status")
     private Status status;
 
     public TrackingComponent(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Status status) {

@@ -1,11 +1,18 @@
 package ka.de.ascendra.backend.model;
 
+import jakarta.persistence.*;
 import ka.de.ascendra.backend.enums.Status;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name="tasks")
 public class Task extends TrackingComponent{
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "milestone_id")
+    private Milestone milestone;
+    @Column(name = "priority")
     private int priority;
 
     public Task(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Status status) {
