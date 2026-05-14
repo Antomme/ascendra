@@ -11,11 +11,12 @@ import java.util.List;
 @Table(name="milestones")
 public class Milestone extends TrackingComponent {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goal_id")
-    private Goal goal;
-
-    @OneToMany(mappedBy = "milestone")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name = "milestone_tasks",
+            joinColumns = @JoinColumn(name = "milestone_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
     private List<Task> tasks;
 
     public Milestone(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Status status) {

@@ -11,7 +11,12 @@ import java.util.List;
 @Table(name="goals")
 public class Goal extends TrackingComponent {
 
-    @OneToMany(mappedBy = "goal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name = "goal_milestones",
+            joinColumns = @JoinColumn(name = "goal_id"),
+            inverseJoinColumns = @JoinColumn(name = "milestone_id")
+    )
     private List<Milestone> milestones;
 
     public Goal(Long id, String name, String description, LocalDate startDate, LocalDate endDate, Status status) {

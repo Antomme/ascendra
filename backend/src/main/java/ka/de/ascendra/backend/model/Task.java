@@ -9,9 +9,6 @@ import java.time.LocalDate;
 @Table(name="tasks")
 public class Task extends TrackingComponent{
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "milestone_id")
-    private Milestone milestone;
     @Column(name = "priority")
     private int priority;
 
